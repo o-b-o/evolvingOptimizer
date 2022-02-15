@@ -1,0 +1,15 @@
+28 Feb 2017
+
+I implemented ndice(n, *seed)
+  returns 1 with a probability of 1/n
+
+implemented mutate(mutfact, *seed, *chromo)
+ it changes a chromosome by iterating through its bits and randomly
+ flipping them with a probability of 1/mutfact
+ (uses ndice)
+
+implemented driver.c
+ this is meant to illustrate how to use mutate to change a chromosome,
+ it also has the intention of demonstrating how a chromosome can change
+ given a mutfact
+

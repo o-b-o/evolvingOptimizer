@@ -1,0 +1,62 @@
+Evolving to maximize a function
+
+structure of this document:
+* overall sketch of algorithm
+* a note on randomness
+
+
+The basic evolution algorithm has three main bastions:
+
+* The genome
+* The reproductive function
+* The mutation function
+
+###
+The genome:
+    The way we encode our solution.
+In this case we are asking a very simple question:
+How to maximize a function
+f(x) = (-800 x^2) + 600 x - 8000
+here our answer will be a number which we can represent
+in a genome using a binary representation.
+
+###
+The reproductive function:
+    Once we know our genomic representation and our fitness function (f(x))
+we have to decide how to make our subjects "reproduce".
+There are several ways of doing this, but the way i've read about so far
+is the following:
+
+We have some genes. For every pair a die is rolled to see if they will mate.
+If we chose to mate them another die is rolled, this determines the "cutoff point"
+at which our genomes will be swapped.
+The new genomes replace the parents.
+
+If the pair does not mate, then the parents pass on to the next generation.
+
+eg: 00000000 mates with 11111111
+ we roll a cutoff point of 4 
+ resulting children 00001111 11110000
+
+###
+The mutation function:
+    This function is called every time two individuals mate
+	it iterates through the bits of the children and using a random number
+	generator it chooses whether to flip the bit or not
+	
+	This function generally should only flip bits on rare occasions.
+
+
+#############################
+### a note on randomness ####
+#############################
+
+this program has functions that need a rng several times per second
+as it is intended to run efficiently and thus at a fast speed.
+the standard way of using rand, seeds srand with time
+we need to seed srand every time we want a random number.
+thus our probability generator NDICE which expects to be called
+often, has an argument which is a pointer to a seed.
+Thus the seed must be initialized in the main program with time(NULL)
+this seed is then passed on to functions which will make sure to change
+it every time they ask for a random number.
